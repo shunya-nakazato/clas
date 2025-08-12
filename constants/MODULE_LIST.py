@@ -1,8 +1,8 @@
 MODULE_LIST = {
-    "d9c": {
-        "PORT": "/dev/tty.usbmodem142201",
+    "D9C": {
+        "PORT": "/dev/tty.usbmodem144101",
     },
-    "f9p": {
-        "PORT": "/dev/tty.usbmodem142101",
+    "F9P": {
+        "PORT": "/dev/tty.usbmodem144301",
     },
 }

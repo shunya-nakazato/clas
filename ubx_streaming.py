@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+"""
+ubx_streaming.py
+-----------------
+使い方:
+    python ubx_streaming.py --module D9C --baud 115200
+
+モジュール：
+    - D9C: QZSS L6
+    - F9P: QZSS L1, L2
+"""
+
 import argparse
 import sys
 import serial
@@ -14,7 +26,7 @@ def main():
         "--module",
         required=True,
         help="Module name",
-        choices=["d9c", "f9p"],
+        choices=MODULE_LIST.keys(),
     )
     ap.add_argument(
         "--baud", type=int, default=115200, help="Baud rate (default 115200)"
@@ -33,12 +45,6 @@ def main():
                     print()
                     output_dict(parsed)
                     print()
-            # while True:
-            #     data = ser.read(2048)       # 128 byte ずつブロック読み
-            #     if data:
-            #         # 16進文字列へ変換し、見やすく16byte折り返し
-            #         hexstr = binascii.hexlify(data).decode()
-            #         print("\n".join(textwrap.wrap(hexstr, 32)))
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         sys.exit(1)
