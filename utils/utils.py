@@ -25,6 +25,9 @@ def output_array(msg):
 
 def output_dict(msg):
     clean_dict = {k: as_str(v) for k, v in vars(msg).items() if not k.startswith("_")}
+    if "UBX" in msg.__class__.__name__:
+        print(f"Message Class: 0x{msg.msg_cls.hex().upper()}")
+        print(f"Message ID: 0x{msg.msg_id.hex().upper()}")
     for k, v in clean_dict.items():
         print(f"{k}: {v}")
 

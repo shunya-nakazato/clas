@@ -3,7 +3,7 @@
 ubx_streaming.py
 -----------------
 使い方:
-    python ubx_streaming.py --module D9C --baud 115200
+    python ubx_streaming.py --module D9C
 
 モジュール：
     - D9C: QZSS L6
@@ -41,7 +41,7 @@ def main():
                 if raw is not None:
                     # ── 出力 ───────────────────────────────────────────────
                     print()
-                    dump_bytes(raw)
+                    # dump_bytes(raw)
                     print()
                     output_dict(parsed)
                     print()

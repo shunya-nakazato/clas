@@ -20,9 +20,9 @@ from constants.CMD_LIST import CMD_LIST, LAYER
 from utils.utils import dump_bytes, output_dict
 
 
-def ubx_cmd(ser: serial.Serial, command: str, layer: str):
+def ubx_cmd(ser: serial.Serial, module: str, command: str, layer: str):
     # --- リクエスト送信 ----------------------------------------------------
-    req = layer and UBXMessage(**CMD_LIST[command](layer=layer)) or UBXMessage(**CMD_LIST[command]())
+    req = layer and UBXMessage(**CMD_LIST[module][command](layer=layer)) or UBXMessage(**CMD_LIST[module][command]())
     ser.write(req.serialize())
 
     # --- 応答受信 ----------------------------------------------------------
@@ -44,7 +44,7 @@ def main():
         "--command",
         required=True,
         help="Command name",
-        choices=CMD_LIST.keys(),
+        choices=[cmd for key in MODULE_LIST.keys() for cmd in CMD_LIST[key].keys()],
     )
     ap.add_argument(
         "--layer",
@@ -59,7 +59,7 @@ def main():
 
     try:
         with serial.Serial(MODULE_LIST[args.module]["PORT"], args.baud, timeout=1) as ser:
-            raw, parsed = ubx_cmd(ser, args.command, args.layer)
+            raw, parsed = ubx_cmd(ser, args.module, args.command, args.layer)
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         sys.exit(1)
