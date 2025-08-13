@@ -16,7 +16,7 @@ import threading
 from d9c.d9c_threading import d9c_thread_loop
 from f9p.f9p_threading import f9p_thread_loop
 from constants.MODULE_LIST import MODULE_LIST
-from utils.utils import output_dict
+from utils.utils import output_msg
 
 q = queue.Queue(maxsize=1000)
 
@@ -30,9 +30,7 @@ def main():
     while True:
         parsed = q.get()
         if parsed is not None:
-            print()
-            output_dict(parsed)
-            print()
+            output_msg(parsed)
 
 
 if __name__ == "__main__":

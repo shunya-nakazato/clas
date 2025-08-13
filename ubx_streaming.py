@@ -15,7 +15,7 @@ import sys
 import serial
 from pyubx2 import UBXReader, NMEA_PROTOCOL, UBX_PROTOCOL
 from constants.MODULE_LIST import MODULE_LIST
-from utils.utils import dump_bytes, output_dict
+from utils.utils import dump_bytes, output_msg
 
 
 def main():
@@ -38,11 +38,8 @@ def main():
                 raw, parsed = ubr.read()  # ブロッキング
                 if raw and parsed is not None:
                     # ── 出力 ───────────────────────────────────────────────
-                    print()
                     # dump_bytes(raw)
-                    print()
-                    output_dict(parsed)
-                    print()
+                    output_msg(parsed)
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         sys.exit(1)

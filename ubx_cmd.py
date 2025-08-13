@@ -17,7 +17,7 @@ import sys
 import serial
 from constants.MODULE_LIST import MODULE_LIST
 from constants.CMD_LIST import CMD_LIST, LAYER
-from utils.utils import dump_bytes, output_dict
+from utils.utils import dump_bytes, output_msg
 
 
 def ubx_cmd(ser: serial.Serial, module: str, command: str, layer: str):
@@ -61,11 +61,8 @@ def main():
         with serial.Serial(MODULE_LIST[args.module]["PORT"], args.baud, timeout=1) as ser:
             raw, parsed = ubx_cmd(ser, args.module, args.command, args.layer)
             # ── 出力 ───────────────────────────────────────────────
-            print()
             # dump_bytes(raw)
-            print()
-            output_dict(parsed)
-            print()
+            output_msg(parsed)
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         sys.exit(1)

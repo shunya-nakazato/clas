@@ -23,14 +23,24 @@ def output_array(msg):
         print(item)
 
 
-def output_dict(msg):
-    clean_dict = {k: as_str(v) for k, v in vars(msg).items() if not k.startswith("_")}
+def output_msg(msg):
     if "UBX" in msg.__class__.__name__:
         print(f"Message Class: 0x{msg.msg_cls.hex().upper()}")
         print(f"Message ID: 0x{msg.msg_id.hex().upper()}")
+        output_dict(msg)
+        print("\n")
     elif "NMEA" in msg.__class__.__name__:
-        print(f"Message Talker: {msg.talker}")
-        print(f"Message ID: {msg.msgID}")
+        # if msg.talker == "GN":
+        if True:
+            if msg.msgID == "GGA":
+                print(f"Message Talker: {msg.talker}")
+                print(f"Message ID: {msg.msgID}")
+                output_dict(msg)
+                print("\n")
+
+
+def output_dict(msg):
+    clean_dict = {k: as_str(v) for k, v in vars(msg).items() if not k.startswith("_")}
     for k, v in clean_dict.items():
         print(f"{k}: {v}")
 

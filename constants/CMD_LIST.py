@@ -98,15 +98,15 @@ CMD_LIST = {
             + b"\x24\x00\x31\x10\x01"  # enable QZSS
             + b"\x12\x00\x31\x10\x01"  # enable QZSS L1
             + b"\x15\x00\x31\x10\x01"  # enable QZSS L2
-            + b"\x21\x00\x31\x10\x00"  # disable Galileo
-            + b"\x07\x00\x31\x10\x00"  # disable Galileo E1
-            + b"\x0a\x00\x31\x10\x00"  # disable Galileo E5
-            + b"\x22\x00\x31\x10\x00"  # disable BeiDou
-            + b"\x0d\x00\x31\x10\x00"  # disable BeiDou B1
-            + b"\x0e\x00\x31\x10\x00"  # disable BeiDou B2
-            + b"\x25\x00\x31\x10\x00"  # disable GLONASS
-            + b"\x18\x00\x31\x10\x00"  # disable GLONASS L1
-            + b"\x1a\x00\x31\x10\x00"  # disable GLONASS L2
+            + b"\x21\x00\x31\x10\x01"  # disable Galileo
+            + b"\x07\x00\x31\x10\x01"  # disable Galileo E1
+            + b"\x0a\x00\x31\x10\x01"  # disable Galileo E5
+            + b"\x22\x00\x31\x10\x01"  # disable BeiDou
+            + b"\x0d\x00\x31\x10\x01"  # disable BeiDou B1
+            + b"\x0e\x00\x31\x10\x01"  # disable BeiDou B2
+            + b"\x25\x00\x31\x10\x01"  # disable GLONASS
+            + b"\x18\x00\x31\x10\x01"  # disable GLONASS L1
+            + b"\x1a\x00\x31\x10\x01"  # disable GLONASS L2
         },
         "SET_TRANSACTION_APPLY": lambda layer="RAM": {
             "ubxClass": 0x06,
