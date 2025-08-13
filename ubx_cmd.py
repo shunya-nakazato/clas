@@ -61,7 +61,7 @@ def main():
         with serial.Serial(MODULE_LIST[args.module]["PORT"], args.baud, timeout=1) as ser:
             raw, parsed = ubx_cmd(ser, args.module, args.command, args.layer)
             # ── 出力 ───────────────────────────────────────────────
-            # dump_bytes(raw)
+            dump_bytes(raw)
             output_msg(parsed)
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)

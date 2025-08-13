@@ -22,9 +22,21 @@ q = queue.Queue(maxsize=1000)
 
 
 def main():
-    d9c_thread = threading.Thread(target=d9c_thread_loop, args=(MODULE_LIST["D9C"]["PORT"], MODULE_LIST["F9P"]["PORT"], 115200, 115200), daemon=True)
+    ap = argparse.ArgumentParser(description="Run main")
+    ap.add_argument(
+        "--usb-transfer", 
+        required=False,
+        help="USB transfer is enabled",
+        choices=["enable", "disable"],
+    )
+    args = ap.parse_args()
+
+    # Transfer L6 messages from D9C to F9P by USB
+    if args.usb_transfer == "enable":
+        d9c_thread = threading.Thread(target=d9c_thread_loop, args=(MODULE_LIST["D9C"]["PORT"], MODULE_LIST["F9P"]["PORT"], 115200, 9600), daemon=True)
+        d9c_thread.start()
+    
     f9p_thread = threading.Thread(target=f9p_thread_loop, args=(MODULE_LIST["F9P"]["PORT"], 115200, q), daemon=True)
-    d9c_thread.start()
     f9p_thread.start()
 
     while True:

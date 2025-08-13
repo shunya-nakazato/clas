@@ -38,7 +38,7 @@ def main():
                 raw, parsed = ubr.read()  # ブロッキング
                 if raw and parsed is not None:
                     # ── 出力 ───────────────────────────────────────────────
-                    # dump_bytes(raw)
+                    dump_bytes(raw)
                     output_msg(parsed)
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)

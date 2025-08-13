@@ -21,29 +21,30 @@ CMD_LIST_COMMON = {
 CMD_LIST = {
     "D9C": {
         **CMD_LIST_COMMON,
-        "GET_CFG_MSGOUT_UBX_RXM_QZSSL6_UART1": lambda: {
+        "GET_CFG_UART1": lambda: {
             "ubxClass": 0x06,
             "ubxID": 0x8b,
             "msgmode": POLL,
-            "payload": b"\x00\x00\x00\x00\x3b\x03\x91\x20",
+            "payload": b"\x00\x00\x00\x00"
+            + b"\x05\x00\x52\x10"  # ENABLED
+            + b"\x01\x00\x52\x40"  # BAUDRATE
+            + b"\x3b\x03\x91\x20"  # CFG-MSGOUT
+            + b"\x01\x00\x74\x10",  # CFG-UART1OUTPROT
         },
-        "GET_CFG_MSGOUT_UBX_RXM_QZSSL6_USB": lambda: {
+        "GET_CFG_USB": lambda: {
             "ubxClass": 0x06,
             "ubxID": 0x8b,
             "msgmode": POLL,
-            "payload": b"\x00\x00\x00\x00\x3d\x03\x91\x20",
+            "payload": b"\x00\x00\x00\x00"
+            + b"\x01\x00\x65\x10"  # ENABLED
+            + b"\x3d\x03\x91\x20"  # CFG-MSGOUT
+            + b"\x01\x00\x78\x10",  # CFG-USBOUTPROT
         },
         "GET_CFG_QZSS_L6_FFFF": lambda: {
             "ubxClass": 0x06,
             "ubxID": 0x8b,
             "msgmode": POLL,
             "payload": b"\x00\x00\x00\x00\xFF\xFF\x37\x20",
-        },
-        "GET_CFG_USBOUTPROT_UBX": lambda: {
-            "ubxClass": 0x06,
-            "ubxID": 0x8b,
-            "msgmode": POLL,
-            "payload": b"\x00\x00\x00\x00\x01\x00\x78\x10",
         },
         # Set commands
         "SET_CFG_MSGOUT_UBX_RXM_QZSSL6_UART1": lambda layer="RAM": {
@@ -67,17 +68,23 @@ CMD_LIST = {
     },
     "F9P": {
         **CMD_LIST_COMMON,
-        "GET_CFG_USBINPROT_FFFF": lambda: {
+        "GET_CFG_UART1": lambda: {
             "ubxClass": 0x06,
             "ubxID": 0x8b,
             "msgmode": POLL,
-            "payload": b"\x00\x00\x00\x00\xFF\xFF\x77\x10",
+            "payload": b"\x00\x00\x00\x00"
+            + b"\x05\x00\x52\x10"  # ENABLED
+            + b"\x01\x00\x52\x40"  # BAUDRATE
+            + b"\x01\x00\x73\x10",  # CFG-UART1INPROT-UBX
         },
-        "GET_CFG_USBOUTPROT_FFFF": lambda: {
+        "GET_CFG_USB": lambda: {
             "ubxClass": 0x06,
             "ubxID": 0x8b,
             "msgmode": POLL,
-            "payload": b"\x00\x00\x00\x00\xFF\xFF\x78\x10",
+            "payload": b"\x00\x00\x00\x00"
+            + b"\x01\x00\x65\x10"  # ENABLED
+            + b"\x01\x00\x77\x10"  # CFG-USBINPROT-UBX
+            + b"\x01\x00\x78\x10",  # CFG-USBOUTPROT-UBX
         },
         "GET_CFG_SIGNAL_FFFF": lambda: {
             "ubxClass": 0x06,
@@ -87,6 +94,13 @@ CMD_LIST = {
         },
         # Set commands
         # Disable other satellites
+        "SET_CFG_UART1_BAUDRATE": lambda layer="RAM": {
+            "ubxClass": 0x06,
+            "ubxID": 0x8a,
+            "msgmode": SET,
+            "payload": b"\x01" + bytes([LAYER[layer]]) + b"\x01\x00"
+            + b"\x01\x00\x52\x40\x80\x25\x00\x00",  # 9600bps
+        },
         "SET_CFG_SIGNAL_FFFF": lambda layer="RAM": {
             "ubxClass": 0x06,
             "ubxID": 0x8a,
