@@ -36,7 +36,7 @@ def main():
             ubr = UBXReader(ser, protfilter=NMEA_PROTOCOL | UBX_PROTOCOL)
             while True:
                 raw, parsed = ubr.read()  # ブロッキング
-                if raw is not None:
+                if raw and parsed is not None:
                     # ── 出力 ───────────────────────────────────────────────
                     print()
                     # dump_bytes(raw)

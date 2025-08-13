@@ -28,6 +28,9 @@ def output_dict(msg):
     if "UBX" in msg.__class__.__name__:
         print(f"Message Class: 0x{msg.msg_cls.hex().upper()}")
         print(f"Message ID: 0x{msg.msg_id.hex().upper()}")
+    elif "NMEA" in msg.__class__.__name__:
+        print(f"Message Talker: {msg.talker}")
+        print(f"Message ID: {msg.msgID}")
     for k, v in clean_dict.items():
         print(f"{k}: {v}")
 
