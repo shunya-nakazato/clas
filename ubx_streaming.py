@@ -13,8 +13,6 @@ ubx_streaming.py
 import argparse
 import sys
 import serial
-import binascii
-import textwrap
 from pyubx2 import UBXReader, NMEA_PROTOCOL, UBX_PROTOCOL
 from constants.MODULE_LIST import MODULE_LIST
 from utils.utils import dump_bytes, output_dict

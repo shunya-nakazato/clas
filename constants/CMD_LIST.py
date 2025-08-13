@@ -67,5 +67,52 @@ CMD_LIST = {
     },
     "F9P": {
         **CMD_LIST_COMMON,
+        "GET_CFG_USBINPROT_FFFF": lambda: {
+            "ubxClass": 0x06,
+            "ubxID": 0x8b,
+            "msgmode": POLL,
+            "payload": b"\x00\x00\x00\x00\xFF\xFF\x77\x10",
+        },
+        "GET_CFG_USBOUTPROT_FFFF": lambda: {
+            "ubxClass": 0x06,
+            "ubxID": 0x8b,
+            "msgmode": POLL,
+            "payload": b"\x00\x00\x00\x00\xFF\xFF\x78\x10",
+        },
+        "GET_CFG_SIGNAL_FFFF": lambda: {
+            "ubxClass": 0x06,
+            "ubxID": 0x8b,
+            "msgmode": POLL,
+            "payload": b"\x00\x00\x00\x00\xFF\xFF\x31\x10",
+        },
+        # Set commands
+        # Disable other satellites
+        "SET_CFG_SIGNAL_FFFF": lambda layer="RAM": {
+            "ubxClass": 0x06,
+            "ubxID": 0x8a,
+            "msgmode": SET,
+            "payload": b"\x01" + bytes([LAYER[layer]]) + b"\x01\x00"
+            + b"\x1f\x00\x31\x10\x01"  # enable GPS
+            + b"\x01\x00\x31\x10\x01"  # enable GPS L1C/A
+            + b"\x03\x00\x31\x10\x01"  # enable GPS L2
+            + b"\x24\x00\x31\x10\x01"  # enable QZSS
+            + b"\x12\x00\x31\x10\x01"  # enable QZSS L1
+            + b"\x15\x00\x31\x10\x01"  # enable QZSS L2
+            + b"\x21\x00\x31\x10\x00"  # disable Galileo
+            + b"\x07\x00\x31\x10\x00"  # disable Galileo E1
+            + b"\x0a\x00\x31\x10\x00"  # disable Galileo E5
+            + b"\x22\x00\x31\x10\x00"  # disable BeiDou
+            + b"\x0d\x00\x31\x10\x00"  # disable BeiDou B1
+            + b"\x0e\x00\x31\x10\x00"  # disable BeiDou B2
+            + b"\x25\x00\x31\x10\x00"  # disable GLONASS
+            + b"\x18\x00\x31\x10\x00"  # disable GLONASS L1
+            + b"\x1a\x00\x31\x10\x00"  # disable GLONASS L2
+        },
+        "SET_TRANSACTION_APPLY": lambda layer="RAM": {
+            "ubxClass": 0x06,
+            "ubxID": 0x8a,
+            "msgmode": SET,
+            "payload": b"\x01" + bytes([LAYER[layer]]) + b"\x03\x00",
+        },
     }
 }

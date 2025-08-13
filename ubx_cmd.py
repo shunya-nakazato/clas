@@ -60,16 +60,15 @@ def main():
     try:
         with serial.Serial(MODULE_LIST[args.module]["PORT"], args.baud, timeout=1) as ser:
             raw, parsed = ubx_cmd(ser, args.module, args.command, args.layer)
+            # ── 出力 ───────────────────────────────────────────────
+            print()
+            # dump_bytes(raw)
+            print()
+            output_dict(parsed)
+            print()
     except (serial.SerialException, TimeoutError) as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         sys.exit(1)
-
-    # ── 出力 ───────────────────────────────────────────────
-    print()
-    # dump_bytes(raw)
-    print()
-    output_dict(parsed)
-    print()
 
 
 if __name__ == "__main__":
