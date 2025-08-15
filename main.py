@@ -10,6 +10,7 @@ main.py
     - F9P: QZSS L1, L2
 """
 
+import argparse
 import sys
 import queue
 import threading
@@ -24,7 +25,7 @@ q = queue.Queue(maxsize=1000)
 def main():
     ap = argparse.ArgumentParser(description="Run main")
     ap.add_argument(
-        "--usb-transfer", 
+        "--usb-transfer",
         required=False,
         help="USB transfer is enabled",
         choices=["enable", "disable"],
@@ -35,7 +36,7 @@ def main():
     if args.usb_transfer == "enable":
         d9c_thread = threading.Thread(target=d9c_thread_loop, args=(MODULE_LIST["D9C"]["PORT"], MODULE_LIST["F9P"]["PORT"], 115200, 9600), daemon=True)
         d9c_thread.start()
-    
+
     f9p_thread = threading.Thread(target=f9p_thread_loop, args=(MODULE_LIST["F9P"]["PORT"], 115200, q), daemon=True)
     f9p_thread.start()
 
