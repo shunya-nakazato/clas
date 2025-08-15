@@ -1,0 +1,2 @@
+pyubx2==1.2.53
+pyserial==3.5
