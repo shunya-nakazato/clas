@@ -1,0 +1,3 @@
+[submodule "mqtt"]
+	path = mqtt
+	url = git@github.com:shunya-nakazato/mqtt.git
